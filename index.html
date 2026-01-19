@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENX MOTORS | Ultra Premium Servis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@200;400;700;900&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #000000;
+            --surface: #050505;
+            --card: #0a0a0a;
+            --primary: #ffffff;
+            --accent: #ffffff;
+            --border: rgba(255,255,255,0.1);
+            --transition: all 0.5s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+       
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.2;
+        }
+
+       
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; width: 100%; height: 2px;
+            background: rgba(255,255,255,0.05);
+            animation: scan 4s linear infinite;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        @keyframes scan { from { top: -10%; } to { top: 110%; } }
+
+       
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 40px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 24px;
+            letter-spacing: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+        }
+        .logo span { font-size: 10px; color: #555; vertical-align: middle; }
+
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #666;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .nav-links a:hover { color: #fff; text-shadow: 0 0 10px #fff; }
+
+        
+        .page {
+            position: absolute;
+            top: 0; width: 100%; min-height: 100vh;
+            padding: 180px 10% 100px 10%;
+            display: none;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .page.active {
+            display: block;
+            animation: pageIn 0.8s forwards;
+        }
+        @keyframes pageIn { to { opacity: 1; transform: translateY(0); } }
+
+       
+        .corner-box {
+            position: relative;
+            border: 1px solid var(--border);
+            padding: 40px;
+            background: var(--surface);
+        }
+        .corner-box::before, .corner-box::after {
+            content: ""; position: absolute; width: 20px; height: 20px; border: 2px solid #fff;
+        }
+        .corner-box::before { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+        .corner-box::after { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
+
+        
+        #home { text-align: center; }
+        .glitch-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 8vw;
+            line-height: 0.8;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        .tech-data { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #444; margin-bottom: 40px; }
+
+        .btn-premium {
+            padding: 20px 50px;
+            background: #fff;
+            color: #000;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-premium:hover { background: #555; color: #fff; letter-spacing: 8px; }
+
+       
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .s-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 40px;
+            transition: var(--transition);
+        }
+        .s-card:hover { background: #fff; color: #000; }
+        .s-card h3 { font-family: 'Syncopate', sans-serif; font-size: 14px; margin-bottom: 15px; }
+
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+        .input-group label { display: block; font-size: 10px; letter-spacing: 2px; color: #444; margin-bottom: 10px; }
+        .input-group input, .input-group select {
+            width: 100%; background: transparent; border: 1px solid var(--border); padding: 15px; color: #fff; outline: none;
+        }
+        .input-group input:focus { border-color: #fff; }
+
+        
+        .review-flex { display: flex; gap: 50px; }
+        .review-list { flex: 1; }
+        .review-item { border-left: 2px solid #222; padding-left: 20px; margin-bottom: 40px; }
+        .stars { color: #fff; font-size: 12px; margin-bottom: 10px; }
+
+      
+        .map-wrapper {
+            width: 100%;
+            height: 450px;
+            filter: grayscale(1) invert(0.9) contrast(1.2); 
+            border: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+        .contact-details { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .detail-item { text-align: center; border: 1px solid var(--border); padding: 20px; }
+        .detail-item h5 { font-size: 9px; color: #444; letter-spacing: 2px; margin-bottom: 10px; }
+
+       
+        .back-nav {
+            position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%);
+            font-size: 10px; letter-spacing: 5px; color: #444; cursor: pointer;
+            z-index: 1001; transition: 0.3s;
+        }
+        .back-nav:hover { color: #fff; }
+
+        @media (max-width: 900px) {
+            .service-grid, .input-row, .contact-details { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo" onclick="showPage('home')">ENX MOTORS<span>©2026</span></div>
+        <div class="nav-links">
+            <a onclick="showPage('services')">Engine</a>
+            <a onclick="showPage('appointment')">Reserve</a>
+            <a onclick="showPage('reviews')">Social</a>
+            <a onclick="showPage('contact')">Find Us</a>
+        </div>
+    </nav>
+
+    <div class="back-nav" id="backBtn" style="display: none;" onclick="showPage('home')">/// BACK TO MAIN ///</div>
+
+    <section id="home" class="page active">
+        <div class="tech-data">SYSTEM_STATUS: OPTIMAL // ENCRYPTION: ACTIVE // LOCATION: 41.1118° N, 29.0225° E</div>
+        <h1 class="glitch-title">PRECISION<br>CRAFT</h1>
+        <button class="btn-premium" onclick="showPage('appointment')">Rezervasyon Başlat</button>
+    </section>
+
+    <section id="services" class="page">
+        <div class="corner-box">
+            <h2 style="font-family: 'Syncopate'; margin-bottom: 40px; letter-spacing: 10px;">SERVICES</h2>
+            <div class="service-grid">
+                <div class="s-card">
+                    <h3>01 // ANALYTICS</h3>
+                    <p>Tam kapsamlı bilgisayarlı motor ve şasi analitiği.</p>
+                </div>
+                <div class="s-card">
+                    <h3>02 // PERFORMANCE</h3>
+                    <p>ECU programlama ve mekanik güçlendirme protokolleri.</p>
+                </div>
+                <div class="s-card">
+                    <h3>03 // STEALTH CARE</h3>
+                    <p>Görünmez koruma kalkanı ve detaylı estetik restorasyon.</p>
+                </div>
+                <div class="s-card">
+                    <h3>04 // CAR CLEANİNG </h3>
+                    <p>İnce işçilik,arabanızda kirden eser bırakmaz.</p>
+                  </div>  
+                    <div class="s-card">
+                    <h3>05 // OİL & FİLTER CHANGE </h3>
+                    <p> Uzman ekibimizle yapılan yağ ve filtre değişimi.</p>
+                    </div>
+                    <div class="s-card">
+                    <h3>06 // Air Conditioner Gas Filling & Maintenance </h3>
+                    <p>Profesyonel klima gazı değişim hizmetimizle aracınız kısa sürede buz gibi serinler.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="appointment" class="page">
+        <div class="form-container corner-box">
+            <h2 style="font-family: 'Syncopate'; margin-bottom: 40px;">REGISTRATION</h2>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>OPERATÖR İSMİ</label>
+                    <input type="text" id="userName" placeholder="John Doe">
+                </div>
+                <div class="input-group">
+                    <label>ARAÇ ŞASİ / MODEL</label>
+                    <input type="text" placeholder="VIN-XXXXXXXX">
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>SERVİS TİPİ</label>
+                    <select>
+                        <option>GENEL BAKIM</option>
+                        <option>HIZLI ONARIM</option>
+                        <option>MODİFİKASYON</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>TARİH</label>
+                    <input type="date">
+                </div>
+            </div>
+            <button class="btn-premium" style="width: 100%;" onclick="sendForm()">KAYDI ONAYLA</button>
+        </div>
+    </section>
+
+    <section id="reviews" class="page">
+        <div class="review-flex corner-box">
+            <div class="review-list">
+                <h2 style="font-family: 'Syncopate'; margin-bottom: 30px;">FEEDBACK</h2>
+                <div id="comments">
+                    <div class="review-item">
+                        <div class="stars">★★★★★</div>
+                        <p style="font-size: 14px; letter-spacing: 1px;">"Mühendislik ve estetiğin tek adresi işçilik harika tavsiye ederim."</p>
+                        <small style="color:#444">@kerem_gtr - Nisan 2026</small>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 300px;">
+                <label style="font-size: 10px; letter-spacing: 2px;">YORUM BIRAKIN</label>
+                <textarea id="revText" style="width: 100%; background: transparent; border: 1px solid #222; color: #fff; padding: 10px; margin-top: 10px;" rows="5"></textarea>
+                <button class="btn-premium" style="width: 100%; margin-top: 20px; font-size: 10px;" onclick="postReview()">GÖNDER</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="page">
+        <div class="corner-box">
+            <h2 style="font-family: 'Syncopate'; margin-bottom: 30px;">LOCATION</h2>
+            <div class="map-wrapper">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.9038478951233!2d29.022515376579335!3d41.11477761353245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab5c163013d87%3A0x6b8253a695e2970!2zTWFzbGFrLCBTYXLEsXllci_EsHN0YW5idWw!5e0!3m2!1str!2str!4v1715456000000!5m2!1str!2str" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <div class="contact-details">
+                <div class="detail-item"><h5>COORD</h5><p>41.11° N</p></div>
+                <div class="detail-item"><h5>PHONE</h5><p>0212 285 00 00</p></div>
+                <div class="detail-item"><h5>MAIL</h5><p>autoenesıs</p></div>
+                <div class="detail-item"><h5>OPEN</h5><p>08:00 - 20:00</p></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showPage(id) {
+            const pages = document.querySelectorAll('.page');
+            const backBtn = document.getElementById('backBtn');
+            
+            pages.forEach(p => p.classList.remove('active'));
+            
+            setTimeout(() => {
+                document.getElementById(id).classList.add('active');
+                backBtn.style.display = (id === 'home') ? 'none' : 'block';
+            }, 100);
+            window.scrollTo(0,0);
+        }
+
+        function postReview() {
+            const text = document.getElementById('revText').value;
+            if(!text) return;
+            const container = document.getElementById('comments');
+            const html = `
+                <div class="review-item" style="animation: pageIn 0.5s forwards">
+                    <div class="stars">★★★★★</div>
+                    <p style="font-size: 14px; letter-spacing: 1px;">"${text}"</p>
+                    <small style="color:#444">@yeni_ziyaretci - Az önce</small>
+                </div>
+            `;
+            container.insertAdjacentHTML('afterbegin', html);
+            document.getElementById('revText').value = '';
+        }
+
+        function sendForm() {
+            const name = document.getElementById('userName').value;
+            alert(name ? `Sistem Onayı: ${name} için kayıt oluşturuldu.` : "Lütfen isim girin.");
+            if(name) showPage('home');
+        }
+    </script>
+</body>
+</html>
